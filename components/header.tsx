@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { FileStack, LogOut, User } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -54,7 +55,12 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-2">
-          <FileStack className="h-6 w-6 text-[#1E88E5]" />
+          <Image 
+            src="/imsdly_logo.png" 
+            alt="Imsdly Logo" 
+            width={70} 
+            height={70}
+          />
           <Link href="/" className="text-xl font-bold">
             Imsdly
           </Link>
