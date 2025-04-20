@@ -46,7 +46,7 @@ export default function Home() {
               <div className="flex justify-center">
                 <div className="relative w-full max-w-[500px] aspect-[4/3] overflow-hidden rounded-xl shadow-2xl">
                   <Image
-                    src="/placeholder.svg?height=600&width=800"
+                    src="/main_app.png"
                     alt="Imsdly App Screenshot"
                     fill
                     className="object-cover"
