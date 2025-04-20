@@ -59,28 +59,60 @@ export default function Header() {
             Imsdly
           </Link>
         </div>
-        <nav className="hidden md:flex gap-6">
-          <Link href="#features" className="text-sm font-medium hover:text-[#1E88E5] transition-colors">
-            Features
-          </Link>
-          <Link href="#how-it-works" className="text-sm font-medium hover:text-[#1E88E5] transition-colors">
-            How It Works
-          </Link>
-          <Link href="#devices" className="text-sm font-medium hover:text-[#1E88E5] transition-colors">
-            Devices
-          </Link>
-          <Link href="#pricing" className="text-sm font-medium hover:text-[#1E88E5] transition-colors">
-            Pricing
-          </Link>
+        <nav className="hidden md:flex items-center">
+          <div className="flex items-center gap-1 px-4 py-1 mx-4 bg-slate-100/80 rounded-full">
+            <Link 
+              href="#features" 
+              className="group relative px-4 py-2 text-sm font-medium text-gray-800 hover:text-[#1E88E5] transition-colors"
+            >
+              Features
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#1E88E5] scale-x-0 transition-transform group-hover:scale-x-100"></span>
+            </Link>
+            <Link 
+              href="#how-it-works" 
+              className="group relative px-4 py-2 text-sm font-medium text-gray-800 hover:text-[#1E88E5] transition-colors"
+            >
+              How It Works
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#1E88E5] scale-x-0 transition-transform group-hover:scale-x-100"></span>
+            </Link>
+            <Link 
+              href="#devices" 
+              className="group relative px-4 py-2 text-sm font-medium text-gray-800 hover:text-[#1E88E5] transition-colors"
+            >
+              Devices
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#1E88E5] scale-x-0 transition-transform group-hover:scale-x-100"></span>
+            </Link>
+            <Link 
+              href="#pricing" 
+              className="group relative px-4 py-2 text-sm font-medium text-gray-800 hover:text-[#1E88E5] transition-colors"
+            >
+              Pricing
+              <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#1E88E5] scale-x-0 transition-transform group-hover:scale-x-100"></span>
+            </Link>
+          </div>
         </nav>
         <div className="flex items-center gap-4">
           {loading ? (
             <div className="w-24 h-9 bg-gray-200 animate-pulse rounded-md"></div>
           ) : user ? (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <Button 
+                className="bg-[#1E88E5] hover:bg-[#1976D2] text-white flex items-center gap-2" 
+                asChild
+              >
+                <Link href="/download">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  Download Imsdly
+                </Link>
+              </Button>
+              
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="outline" className="flex items-center gap-2 px-3 py-2 h-9 bg-[#E3F2FD] text-[#1E88E5] hover:bg-[#BBDEFB] border-[#90CAF9]">
+                  <Button variant="outline" className="flex items-center gap-2 px-3 py-2 h-9 bg-[#1E88E5] text-white hover:bg-[#1976D2] border-[#1565C0]">
                     <span className="text-sm font-medium">
                       {user.user_metadata.full_name || user.email?.split('@')[0] || "User"}
                     </span>
@@ -110,7 +142,7 @@ export default function Header() {
             </div>
           ) : (
             <Button className="bg-[#1E88E5] hover:bg-[#1976D2]">
-              <Link href="/auth">Sign In / Register</Link>
+              <Link href="/auth">Sign In</Link>
             </Button>
           )}
         </div>
