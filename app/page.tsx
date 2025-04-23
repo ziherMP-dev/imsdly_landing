@@ -172,16 +172,14 @@ export default function Home() {
               <div className="flex flex-wrap -mx-4">
                 {/* Blank Feature Frame (6th frame) in upper left corner */}
                 <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 order-first">
-                  <div className="h-full bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex items-center justify-center">
-                    <div className="relative w-full aspect-square rounded-xl overflow-hidden">
-                      {/* Empty placeholder for custom image */}
-                      <div className="w-full h-full bg-gray-50 flex items-center justify-center">
-                        <p className="text-gray-300 text-sm">Your custom image here</p>
-                      </div>
+                  <div className="h-full bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100">
+                    {/* Empty container with same dimensions as other feature boxes */}
+                    <div className="w-full h-[180px] bg-gray-50 rounded-md flex items-center justify-center">
+                      <p className="text-gray-300 text-sm">Your image here (300x180px)</p>
                     </div>
                   </div>
                 </div>
-
+                
                 {/* Feature 1 */}
                 <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                   <div className="h-full bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100">
