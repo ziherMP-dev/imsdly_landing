@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -12,10 +14,79 @@ import {
   MemoryStickIcon as SdCard,
   HardDrive,
   Usb,
+  Info,
 } from "lucide-react"
 import Header from "@/components/header"
+import { useEffect, useState } from "react"
+import { supabase } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import { toast } from "sonner"
 
 export default function Home() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+  const [showLoginMessage, setShowLoginMessage] = useState(false)
+  const [fadeOut, setFadeOut] = useState(false)
+  const router = useRouter()
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession()
+        setIsLoggedIn(!!session)
+      } catch (error) {
+        console.error("Auth check error:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    checkAuthStatus()
+  }, [])
+
+  useEffect(() => {
+    let fadeTimer: NodeJS.Timeout;
+    let hideTimer: NodeJS.Timeout;
+    
+    if (showLoginMessage) {
+      // Start fade out after 4 seconds
+      fadeTimer = setTimeout(() => {
+        setFadeOut(true)
+      }, 4000)
+      
+      // Hide message completely after 5 seconds (4s + 1s for fade animation)
+      hideTimer = setTimeout(() => {
+        setShowLoginMessage(false)
+        setFadeOut(false)
+      }, 5000)
+    }
+    
+    // Cleanup timers on component unmount or when state changes
+    return () => {
+      clearTimeout(fadeTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [showLoginMessage])
+
+  const handleDownloadClick = () => {
+    if (isLoggedIn) {
+      router.push('/download')
+    } else {
+      setFadeOut(false) // Reset fade state
+      setShowLoginMessage(true)
+    }
+  }
+
+  const handleBuyClick = () => {
+    if (isLoggedIn) {
+      // Scroll to pricing section
+      document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      setFadeOut(false) // Reset fade state
+      setShowLoginMessage(true)
+    }
+  }
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -33,14 +104,39 @@ export default function Home() {
                     Seamlessly import files from external storage devices to your computer with just a few clicks.
                   </p>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button className="bg-[#1E88E5] hover:bg-[#1976D2] text-white">Download Free Trial</Button>
-                  <Button
-                    variant="outline"
-                    className="border-[#1E88E5] text-[#1E88E5] hover:bg-[#1E88E5] hover:text-white"
-                  >
-                    Buy Now - $30 Lifetime License
-                  </Button>
+                <div className="flex flex-col gap-4">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      className="bg-[#1E88E5] hover:bg-[#1976D2] text-white"
+                      onClick={handleDownloadClick}
+                    >
+                      Download Free Trial
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="border-[#1E88E5] text-[#1E88E5] hover:bg-[#1E88E5] hover:text-white"
+                      onClick={handleBuyClick}
+                    >
+                      Buy Now - $30 Lifetime License
+                    </Button>
+                  </div>
+                  
+                  {showLoginMessage && !isLoggedIn && (
+                    <div className={`flex items-start gap-2 p-3 rounded-md bg-amber-50 border border-amber-200 text-amber-800 mt-2 transition-opacity duration-1000 ${fadeOut ? 'opacity-0' : 'opacity-100'}`}>
+                      <Info className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                      <div className="flex flex-col gap-1">
+                        <p className="text-sm font-medium">Please sign in to continue</p>
+                        <p className="text-xs">You need to be logged in to download or purchase the application</p>
+                        <Button 
+                          variant="link" 
+                          className="p-0 h-auto text-sm text-blue-600 justify-start" 
+                          onClick={() => router.push('/auth')}
+                        >
+                          Sign in now →
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="flex justify-center">
@@ -74,6 +170,18 @@ export default function Home() {
 
             <div className="max-w-5xl mx-auto">
               <div className="flex flex-wrap -mx-4">
+                {/* Blank Feature Frame (6th frame) in upper left corner */}
+                <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 order-first">
+                  <div className="h-full bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100 flex items-center justify-center">
+                    <div className="relative w-full aspect-square rounded-xl overflow-hidden">
+                      {/* Empty placeholder for custom image */}
+                      <div className="w-full h-full bg-gray-50 flex items-center justify-center">
+                        <p className="text-gray-300 text-sm">Your custom image here</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Feature 1 */}
                 <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
                   <div className="h-full bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow border border-gray-100">
@@ -357,7 +465,12 @@ export default function Home() {
                       <span className="font-inter">Email support</span>
                     </li>
                   </ul>
-                  <Button className="w-full mt-6 bg-[#1E88E5] hover:bg-[#1976D2]">Buy Now</Button>
+                  <Button 
+                    className="w-full mt-6 bg-[#1E88E5] hover:bg-[#1976D2]"
+                    onClick={handleBuyClick}
+                  >
+                    Buy Now
+                  </Button>
                   <p className="text-xs text-center text-gray-500 mt-4 font-inter">30-day money-back guarantee</p>
                 </CardContent>
               </Card>

@@ -58,8 +58,8 @@ export default function Header() {
           <Image 
             src="/imsdly_logo.png" 
             alt="Imsdly Logo" 
-            width={70} 
-            height={70}
+            width={30} 
+            height={30}
           />
           <Link href="/" className="text-xl font-bold">
             Imsdly
@@ -102,20 +102,6 @@ export default function Header() {
             <div className="w-24 h-9 bg-gray-200 animate-pulse rounded-md"></div>
           ) : user ? (
             <div className="flex items-center gap-3">
-              <Button 
-                className="bg-[#1E88E5] hover:bg-[#1976D2] text-white flex items-center gap-2" 
-                asChild
-              >
-                <Link href="/download">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                    <polyline points="7 10 12 15 17 10" />
-                    <line x1="12" y1="15" x2="12" y2="3" />
-                  </svg>
-                  Download Imsdly
-                </Link>
-              </Button>
-              
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="flex items-center gap-2 px-3 py-2 h-9 bg-[#1E88E5] text-white hover:bg-[#1976D2] border-[#1565C0]">
@@ -136,6 +122,16 @@ export default function Header() {
                     <Link href="/dashboard" className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
                       <span>Dashboard</span>
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/download" className="cursor-pointer">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                      </svg>
+                      <span>Download</span>
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator />

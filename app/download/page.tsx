@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { supabase } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
-import { Loader2 } from "lucide-react"
+import { Loader2, ArrowLeft } from "lucide-react"
 
 export default function DownloadPage() {
   const [loading, setLoading] = useState(true)
@@ -139,6 +139,15 @@ export default function DownloadPage() {
               </div>
             </div>
           </div>
+        </div>
+        
+        <div className="flex justify-center mt-12">
+          <Button variant="outline" className="flex items-center gap-2" asChild>
+            <Link href="/">
+              <ArrowLeft className="h-4 w-4" />
+              Back to Home
+            </Link>
+          </Button>
         </div>
       </div>
     </div>
