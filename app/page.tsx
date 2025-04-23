@@ -117,7 +117,7 @@ export default function Home() {
                       className="border-[#1E88E5] text-[#1E88E5] hover:bg-[#1E88E5] hover:text-white"
                       onClick={handleBuyClick}
                     >
-                      Buy Now - $30 Lifetime License
+                      Buy Now - $35 Lifetime License
                     </Button>
                   </div>
                   
@@ -442,7 +442,7 @@ export default function Home() {
                 </CardHeader>
                 <CardContent className="p-6">
                   <div className="text-center mb-6">
-                    <span className="text-5xl font-bold font-poppins">$30</span>
+                    <span className="text-5xl font-bold font-poppins">$35</span>
                     <span className="text-gray-500 ml-2 font-inter">one-time</span>
                   </div>
                   <ul className="space-y-3">
